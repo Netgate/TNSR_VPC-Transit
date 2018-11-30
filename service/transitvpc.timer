@@ -1,0 +1,8 @@
+[Unit]
+Description=Execute check up S3Bucket-configs
+[Timer]
+OnCalendar=*:0/1
+Unit=transitvpc.service
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,71 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Parameters": {
+    "StackName": {
+      "Type": "String",
+      "Default": "TestSpokeVPC"
+    },
+    "EnvName": {
+      "Type": "String"
+    },
+    "SubnetS1": {
+      "Type": "String",
+      "Default": "10.101.0.0/16"
+    }
+  },
+  "Resources": {
+    "TestVPCSpoke1": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": {
+          "Ref": "SubnetS1"
+        },
+        "Tags": [
+          {
+            "Key": "env",
+            "Value": {
+              "Ref": "EnvName"
+            }
+          },
+          {
+            "Key": "Name",
+            "Value": "TestVPC-Spoke"
+          }
+        ]
+      }
+    },
+    "TestVPNGWSpoke1": {
+      "Type": "AWS::EC2::VPNGateway",
+      "Properties": {
+        "Type": "ipsec.1",
+        "Tags": [
+          {
+            "Key": "env",
+            "Value": {
+              "Ref": "EnvName"
+            }
+          },
+          {
+            "Key": "Name",
+            "Value": "TESTVPNGW"
+          },
+          {
+            "Key": "transitvpc:spoke",
+            "Value": "true"
+          }
+        ]
+      }
+    },
+    "VPNGAttachment": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpnGatewayId": {
+          "Ref": "TestVPNGWSpoke1"
+        },
+        "VpcId": {
+          "Ref": "TestVPCSpoke1"
+        }
+      }
+    }
+  }
+}
