@@ -10,7 +10,7 @@ AWS Transit VPC enables multiple Virtual Private Clouds (VPCs) - either geograph
 In this project a TNSR instance is used to connect multiple AWS VPCS via high speed IPSec tunnels. The advantages of this approach are many:
 
 * Provides a way to interconnect VPCs in different regions with each other and with remote networks.
-* Provides security using IPsec with strong encryption. 
+* Provides security using IPsec with strong encryption.
 * The IPsec cryptographic implementation is optimized for performance, which allows for high throughput.
 * Support for IKEv2. AWS only supports IKEv1 on their VPN connections, but TNSR supports both IKEv1 and IKEv2, so connections to remote datacenters or cloud provider networks can use IKEv2.
 * Very cost effective when compared with comparable options (AWS Direct Connect, other Transit VPC images - see pricing at the bottom of https://docs.aws.amazon.com/solutions/latest/cisco-based-transit-vpc/overview.html).
@@ -21,4 +21,4 @@ TNSR is provisioned with 2 interfaces. The first interface is attached to the in
 For deployment TransitVPC uses the CloudFormation template which contains basic parameters for running the TNSR instance. The CloudFormation template also creates roles, policies, and LambdaFunctions in AWS as well as setting up a schedule for the Lambda script.
 
 ## Documentation
-Please consult the documents in the Docs folder for complete details of the Transit VPS solution.
+Please consult the documents in the [Docs folder](Docs) for complete details of the Transit VPS solution.
