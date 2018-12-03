@@ -21,4 +21,4 @@ TNSR is provisioned with 2 interfaces. The first interface is attached to the in
 For deployment TransitVPC uses the CloudFormation template which contains basic parameters for running the TNSR instance. The CloudFormation template also creates roles, policies, and LambdaFunctions in AWS as well as setting up a schedule for the Lambda script.
 
 ## Documentation
-Please consult the documents in the [Docs folder](Docs) for complete details of the Transit VPS solution.
+Please consult the MANUAL.md file for complete details of the Transit VPS solution.
