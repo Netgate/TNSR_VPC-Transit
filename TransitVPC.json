@@ -296,7 +296,7 @@
     "CreateTransitInstance": {
       "Type": "AWS::EC2::Instance",
       "Properties": {
-        "InstanceType": "m5.large",
+        "InstanceType": "c5.18xlarge",
         "ImageId": { "Ref": "InstanceAMI" },
         "KeyName": {
           "Ref": "KeyName"
