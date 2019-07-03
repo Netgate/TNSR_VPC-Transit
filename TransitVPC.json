@@ -329,12 +329,10 @@
               [
                 "#!/bin/bash\n",
                 "hostnamectl set-hostname --static transit01-euw1b\n",
-                "sudo sed -i 's/^SELINUX=.*$/SELINUX=permissive/' /etc/selinux/config\n",
-                "sudo setenforce 0\n",
                 "sudo yum -y install python-pip\n",
                 "sudo pip install boto3\n",
                 "sudo bash -c 'echo DEVICE=eth1 > /etc/sysconfig/network-scripts/ifcfg-eth1'\n",
-                "sudo echo '''<config><http-config><restconf><enable>true</enable></restconf></http-config></config>''' > /var/tnsr/startup_db\n",
+                "sudo echo '''<config><http-config xmlns=\"urn:ietf:params:xml:ns:yang:netgate-http\"><restconf><enable>true</enable></restconf></http-config></config>''' > /var/tnsr/startup_db\n",
                 "sudo systemctl start clixon-restconf\n",
                 "sudo reboot"
               ]
