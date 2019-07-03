@@ -40,7 +40,7 @@
     },
     "InstanceAMI": {
       "Type" : "String",
-      "Default" : "ami-0c71c2ced78b4964b"
+      "Default" : "ami-05925498c9a555289"
     },
     "ALLOWSSH": {
       "Type": "String",
