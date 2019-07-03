@@ -44,7 +44,7 @@
     },
     "ALLOWSSH": {
       "Type": "String",
-      "Default": "91.212.168.20/32"
+      "Default": "127.0.0.1/32"
 
     }
   },
