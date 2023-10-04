@@ -56,7 +56,7 @@
         "Name" : "vgw-poller",
         "Handler": "transit-vpc-poller.lambda_handler",
         "Description": "Transit VPC: Poller function responsible for identifying specifically tagged VGWs and creating VPN connections to transit VPC.",
-        "Runtime": "python2.7",
+        "Runtime": "python3.9",
         "Timeout": "60",
         "MemorySize": "128"
       }
