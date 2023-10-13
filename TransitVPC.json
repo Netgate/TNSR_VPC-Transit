@@ -40,7 +40,7 @@
     },
     "InstanceAMI": {
       "Type" : "String",
-      "Default" : "ami-05925498c9a555289"
+      "Default" : "ami-0440315fdc56d5a66"
     },
     "ALLOWSSH": {
       "Type": "String",
@@ -328,13 +328,47 @@
               "",
               [
                 "#!/bin/bash\n",
-                "hostnamectl set-hostname --static transit01-euw1b\n",
-                "sudo yum -y install python-pip\n",
-                "sudo pip install boto3\n",
-                "sudo bash -c 'echo DEVICE=eth1 > /etc/sysconfig/network-scripts/ifcfg-eth1'\n",
-                "sudo echo '''<config><http-config xmlns=\"urn:ietf:params:xml:ns:yang:netgate-http\"><restconf><enable>true</enable></restconf></http-config></config>''' > /var/tnsr/startup_db\n",
-                "sudo systemctl start clixon-restconf\n",
-                "sudo reboot"
+				"hostnamectl set-hostname --static transit01-euw1b\n",
+				"sudo ln -sf /usr/bin/python3 /usr/bin/python\n",
+				"sudo apt-get -y install python3-pip\n",
+				"sudo pip install boto3\n",
+				"echo 'configure\n",
+				"\n",
+				"pki private-key restconf-CA generate\n",
+				"pki signing-request settings clear\n",
+				"pki signing-request set common-name restconf-CA\n",
+				"pki signing-request set digest sha512\n",
+				"pki signing-request restconf-CA generate\n",
+				"pki signing-request restconf-CA sign self purpose ca\n",
+				"\n",
+				"pki private-key restconf-client generate key-length 4096\n",
+				"pki signing-request settings clear\n",
+				"pki signing-request set common-name tnsr\n",
+				"pki signing-request set digest sha512\n",
+				"pki signing-request restconf-client generate\n",
+				"pki signing-request restconf-client sign ca-name restconf-CA days-valid 365 digest sha512 purpose client\n",
+				"\n",
+				"pki private-key restconf generate key-length 4096\n",
+				"pki signing-request settings clear\n",
+				"pki signing-request set common-name transit01-euw1b\n",
+				"pki signing-request set subject-alt-names add hostname transit01-euw1b\n",
+				"pki signing-request set subject-alt-names add hostname localhost\n",
+				"pki signing-request set subject-alt-names add ipv4-address 127.0.0.1\n",
+				"pki signing-request set digest sha512\n",
+				"pki signing-request restconf generate\n",
+				"pki signing-request restconf sign ca-name restconf-CA days-valid 365 digest sha512 purpose server\n",
+				"\n",
+				"restconf\n",
+				"global authentication-type client-certificate\n",
+				"global server-ca-cert-path restconf-CA\n",
+				"global server-certificate restconf\n",
+				"global server-key restconf\n",
+				"server host 127.0.0.1 443 true\n",
+				"enable true\n",				
+				"exit\n",
+				"configuration copy running startup\n' > restconf_config\n",				
+				"sudo clixon_cli -F restconf_config\n",
+				"sudo tnsrctl restart"
               ]
             ]
           }

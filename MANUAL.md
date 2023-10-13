@@ -71,12 +71,10 @@ interface VirtualFunctionEthernet0/6/0
 ip address 10.10.0.101/24
 enable
 exit
-route ipv4 table ipv4-VRF:0
+route table ipv4-VRF:0
 route 0.0.0.0/0
 next-hop 1 via 10.10.0.1 VirtualFunctionEthernet0/6/0
-exit
-exit
-exit
+end
 ```
 
 ### Locations:
